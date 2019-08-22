@@ -1,6 +1,7 @@
 package com.revature.eval.java.core;
 
 import java.time.temporal.Temporal;
+import java.util.IllegalFormatException;
 import java.util.List;
 import java.util.Map;
 
@@ -15,7 +16,22 @@ public class EvaluationService {
 	 */
 	public String reverse(String string) {
 		// TODO Write an implementation for this method declaration
-		return null;
+		int length = string.length()-1;
+		//System.out.println(length);
+		String retString = "";
+		
+		while(length >= 0) {
+			retString = retString.concat(Character.toString(string.charAt(length)));
+			//String chara = Character.toString(string.charAt(length));
+			//System.out.println(chara);
+			
+			
+			length--;
+			//System.out.println(length);
+			//System.out.println(retString);
+		}
+		
+		return retString;
 	}
 
 	/**
@@ -27,8 +43,35 @@ public class EvaluationService {
 	 * @return
 	 */
 	public String acronym(String phrase) {
-		// TODO Write an implementation for this method declaration
-		return null;
+		
+		String acronym = "";
+		Character testChar;
+		int len = phrase.length();
+		boolean previous = true;
+		
+		for(int i = 0; i<len; i++) {
+			
+			testChar = phrase.charAt(i);
+			
+			if(testChar < 65 || (testChar > 132 && testChar < 141) ||( testChar > 122)) {
+				
+				previous = true;
+				
+			}
+			else if (previous == true) {
+				
+				
+				acronym = acronym.concat(testChar.toString());
+				previous = false;
+				
+			}
+			
+			
+		}
+		
+		acronym = acronym.toUpperCase();
+		//System.out.println(acronym);
+		return acronym;
 	}
 
 	/**
@@ -81,18 +124,30 @@ public class EvaluationService {
 		}
 
 		public boolean isEquilateral() {
-			// TODO Write an implementation for this method declaration
-			return false;
+			if(this.getSideOne() == this.getSideTwo() && this.getSideOne() == this.getSideThree()) {
+				return true;
+			}
+			else {
+				return false;
+			}
 		}
 
 		public boolean isIsosceles() {
-			// TODO Write an implementation for this method declaration
-			return false;
+			if(this.getSideOne() == this.getSideTwo() || this.getSideOne() == this.getSideThree() || this.getSideTwo() == this.getSideThree()) {
+				return true;
+			}
+			else {
+				return false;
+			}
 		}
 
 		public boolean isScalene() {
-			// TODO Write an implementation for this method declaration
-			return false;
+			if(this.getSideOne() != this.getSideTwo() && this.getSideOne() != this.getSideThree() && this.getSideTwo() != this.getSideThree()) {
+				return true;
+			}
+			else {
+				return false;
+			}
 		}
 
 	}
@@ -113,8 +168,64 @@ public class EvaluationService {
 	 * @return
 	 */
 	public int getScrabbleScore(String string) {
-		// TODO Write an implementation for this method declaration
-		return 0;
+		
+		String[] scrab1 = {"A","E","I","O","U","L","N",
+				"R","S","T"};
+		
+		String[] scrab2 = {"D","G"};
+		String[] scrab3 = {"B","C","M","P"};
+		String[] scrab4 = {"F","H","V","W","Y"};
+		String[] scrab5 = {"K",};
+		String[] scrab8 = {"X"};
+		String[] scrab10 = {"Q","Z"};
+		
+		String scString = string.toUpperCase();
+		int count = 0;
+		
+		for(int i = 0; i<scString.length();i++) {
+			
+			String testString = Character.toString(scString.charAt(i));
+			//System.out.println(testString);
+			
+			for(int j = 0;j<scrab1.length;j++) {	
+				
+				//System.out.println("Hey.");
+				if(testString.equals(scrab1[j])) {
+					count = count + 1;
+				}		
+			}
+			for(int j = 0;j<scrab2.length;j++) {	
+				if(testString.equals(scrab2[j])) {
+					count = count + 2;
+				}		
+			}
+			for(int j = 0;j<scrab3.length;j++) {	
+				if(testString.equals(scrab3[j])) {
+					count = count + 3;
+				}		
+			}
+			for(int j = 0;j<scrab4.length;j++) {	
+				if(testString.equals(scrab4[j])) {
+					count = count + 4;
+				}		
+			}
+			for(int j = 0;j<scrab5.length;j++) {	
+				if(testString.equals(scrab5[j])) {
+					count = count + 5;
+				}		
+			}
+			for(int j = 0;j<scrab8.length;j++) {	
+				if(testString.equals(scrab8[j])) {
+					count = count + 8;
+				}		
+			}
+			for(int j = 0;j<scrab10.length;j++) {	
+				if(testString.equals(scrab10[j])) {
+					count = count + 10;
+				}		
+			}
+		}
+		return count;
 	}
 
 	/**
@@ -149,8 +260,32 @@ public class EvaluationService {
 	 * NANP-countries, only 1 is considered a valid country code.
 	 */
 	public String cleanPhoneNumber(String string) {
-		// TODO Write an implementation for this method declaration
-		return null;
+	
+		
+		System.out.println(string);
+		char[] numArray = string.toCharArray();
+		String retString = "";
+		
+		for(char test: numArray) {
+			if(test>47 && test<58) {
+				retString = retString.concat(Character.toString(test));
+				System.out.println("Concating "+test);
+			}
+			else if(test != 32 && test!= 45 && test != 46&& test !=40 && test!=41){
+				throw new IllegalArgumentException();
+				//System.out.println("Throwing Exception.");
+			}
+		}
+		
+		if(retString.length()==11) {
+			retString = retString.substring(1);
+		}
+		else if(retString.length()>11) {
+			throw new IllegalArgumentException();
+		}
+		
+		System.out.println(retString);
+		return retString;
 	}
 
 	/**
@@ -163,7 +298,11 @@ public class EvaluationService {
 	 * @return
 	 */
 	public Map<String, Integer> wordCount(String string) {
-		// TODO Write an implementation for this method declaration
+
+		
+		
+		
+		
 		return null;
 	}
 
@@ -317,7 +456,8 @@ public class EvaluationService {
 		}
 
 		public String rotate(String string) {
-			// TODO Write an implementation for this method declaration
+			System.out.println(key);
+			
 			return null;
 		}
 
