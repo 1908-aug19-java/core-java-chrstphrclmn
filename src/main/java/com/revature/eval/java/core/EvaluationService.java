@@ -3,11 +3,9 @@ package com.revature.eval.java.core;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.LocalTime;
-import java.time.Month;
 import java.time.temporal.Temporal;
 import java.util.HashMap;
 import java.util.HashSet;
-import java.util.IllegalFormatException;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
@@ -307,7 +305,7 @@ public class EvaluationService {
 	 */
 	public Map<String, Integer> wordCount(String string) {
 		
-		Map<String, Integer> retMap = new HashMap();
+		Map<String, Integer> retMap = new HashMap<String, Integer>();
 		String replace = string.replace("\n", " ");
 		replace = replace.replace(",", " ");
 		String[] splitString = replace.split(" ");
